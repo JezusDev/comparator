@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="body-container">
+    <header class="header">
+      <div class="container">
+        <div class="header__title">Сравнение исходного кода</div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="container">
+        <a href="#" class="back-link">Назад</a>
+
+        <div class="app">
+          <form action="" class="app__form">
+            <div class="app__container">
+              <div class="code-block origin">
+                <label for="origin" class="file-downloader" data-type="origin">
+                  <input type="file" name="origin" id="origin">
+                  <div class="code-block__name">Выберите исходный файл</div>
+                  <div class="code-block__btn">Выбрать</div>
+                </label>
+
+              </div>
+              <div class="code-block review">
+                <label for="review" class="file-downloader" data-type="review">
+                  <input type="file" name="review" id="review">
+                  <div class="code-block__name">Выберите исходный файл</div>
+                  <div class="code-block__btn">Выбрать</div>
+                </label>
+
+              </div>
+            </div>
+
+            <div id="monaco-container">
+
+            </div>
+
+
+            <button type="submit" class="app__button">Проанализировать</button>
+          </form>
+          <div class="out"> Результат совпадения: <span class="out__text"></span></div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="../node_modules/monaco-editor/min/vs/loader.js"></script>
+  <script src="./download.js"></script>
+  <script src="./index.js"></script>
+</body>
+
+</html>
