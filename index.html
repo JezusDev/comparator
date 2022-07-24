@@ -26,7 +26,7 @@
         <a href="#" class="back-link">Назад</a>
 
         <div class="app">
-          <form action="" class="app__form">
+          <form class="app__form">
             <div class="app__container">
               <div class="code-block origin">
                 <label for="origin" class="file-downloader" data-type="origin">
@@ -51,7 +51,12 @@
             </div>
 
 
-            <button type="submit" class="app__button">Проанализировать</button>
+            <div class="app__analysis">
+              <button type="submit" class="app__button">Проанализировать</button>
+              <div class="loader">
+                <img src="./Vector.svg" alt="">
+              </div>
+            </div>
           </form>
           <div class="out"> Результат совпадения: <span class="out__text"></span></div>
         </div>

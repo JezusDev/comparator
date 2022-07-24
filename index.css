@@ -104,7 +104,7 @@ input[type="file"] {
 }
 
 .code-block {
-  width: 40%;
+  width: 624px;
 }
 
 .code-block__name {
@@ -115,4 +115,24 @@ input[type="file"] {
   background: #e7ecef;
   border-left: 1px solid #dedede;
   transition: all 0.2s ease-in-out;
+}
+
+.app__analysis {
+  display: flex;
+  align-items: center;
+}
+
+.loader {
+  display: none;
+  margin-left: 30px;
+  animation: load 1.2s linear infinite;
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

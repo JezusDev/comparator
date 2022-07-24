@@ -11,7 +11,11 @@ document
 
     require(["vs/editor/editor.main"], function () {
       var diffEditor = monaco.editor.createDiffEditor(
-        document.getElementById("monaco-container")
+        document.getElementById("monaco-container"),
+        {
+          renderOverviewRuler: false,
+          enableSplitViewResizing: true,
+        }
       );
 
       Promise.all(dataArray).then(function (r) {
@@ -23,49 +27,41 @@ document
         });
       });
     });
-    diffRequest(dataArray[0], dataArray[1]);
+    diffRequest(dataArray[0], dataArray[1]).then((data) => {
+      if (!data.ok) {
+        console.log(data);
+        document.querySelector(".out").textContent = "Что-то пошло не так";
+        return;
+      }
+      document.querySelector(".out .out__text").innerHTML =
+        parseInt(data.json().result, 10) * 100 + "%";
+    });
     e.target.removeEventListener("click", diff);
     e.target.textContent = "Повторить";
   });
 
 async function diffRequest(origin, modify) {
-  // const data = {
-  //   origin: origin,
-  //   reviewer: modify,
-  // };
-
-  // const response = await fetch(
-  //   "https://d5d8ctsk5ep2cvlh7bka.apigw.yandexcloud.net/api/code-comparator/compare",
-  //   {
-  //     method: "POST",
-  //     cache: "no-cache",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   }
-  // );
-  // console.log(response);
-  // return await response.json();
-  var url =
-    "https://d5d8ctsk5ep2cvlh7bka.apigw.yandexcloud.net/api/code-comparator/compare";
-
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", url);
-
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
-    }
+  const data = {
+    origin: origin,
+    reviewer: modify,
   };
 
-  var data = `{
-  "origin":"def hello(): print(\"Hello, World!\")",
-  "reviewer":"def hello(): print(\"Hello, World!\")"
-} `;
+  document.querySelector(".loader").style.display = "block";
 
-  xhr.send(data);
+  const response = await fetch(
+    "https://d5d8ctsk5ep2cvlh7bka.apigw.yandexcloud.net/api/code-comparator/compare",
+    {
+      method: "POST",
+      mode: "no-cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
+
+  document.querySelector(".loader").style.display = "none";
+
+  return await response;
 }
